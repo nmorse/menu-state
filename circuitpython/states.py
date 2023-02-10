@@ -150,132 +150,155 @@ fn_map = {
     "menu_task_c": show_state_name,
     "menu_task_c2": show_state_name,
     "menu_task_c3": show_state_name,
-    "blank_screen": blank_screen
+    "blank_screen": blank_screen,
+    "time_left": show_state_name,
+    "show_graph": show_state_name
 }
 
 menu_states = {
-    "id": "Hydrate-U",
-    "initial": "startup",
-    "states": {
-        "startup": {
-            "entry": "init",
-            "on": {
-                "done": {
-                    "target": "startup screen"
-                }
-            }
-        },
-        "startup screen": {
-            "entry": "startup_screen",
-            "on": {
-                "button_b_release": {
-                    "target": "startup screen 2"
-                }
-            }
-        },
-        "startup screen 2": {
-            "entry": "startup_screen_2",
-            "on": {
-                "button_b_release": {
-                    "target": "startup screen 3"
-                }
-            }
-        },
-        "startup screen 3": {
-            "entry": "startup_screen_3",
-            "on": {
-                "button_b_release": {
-                    "target": "show status"
-                }
-            }
-        },
-        "show status": {
-            "entry": "show_status",
-            "on": {
-                "timeout": {
-                    "target": "blank screen"
-                },
-                "button_b_release": {
-                    "target": "menu"
-                },
-                "long_button_b": {
-                    "target": "show graph"
-                },
-                "long_button_a": {
-                    "target": "time left"
-                }
-            }
-        },
-        "blank screen": {
-            "entry": "blank_screen",
-            "on": {
-                "button_b_release": {
-                    "target": "menu"
-                },
-                "button_a_release": {
-                    "target": "show status"
-                }
-            }
-        },
-        "menu": {
-            "entry": "menu",
-            "on": {
-                "button_b_release": {
-                    "target": "menu task C"
-                },
-                "long_button_a": {
-                    "target": "startup screen"
-                },
-                "button_a_release": {
-                    "target": "show status"
-                }
-            }
-        },
-        "menu task C": {
-            "entry": "menu_task_c",
-            "on": {
-                "button_b_release": {
-                    "target": "menu task C 2"
-                }
-            }
-        },
-        "menu task C 2": {
-            "entry": "menu_task_c2",
-            "on": {
-                "button_b_release": {
-                    "target": "menu task C 3"
-                }
-            }
-        },
-        "menu task C 3": {
-            "entry": "menu_task_c3",
-            "on": {
-                "button_b_release": {
-                    "target": "show status"
-                }
-            }
-        },
-        "show graph": {
-            "entry": "show_graph",
-            "on": {
-                "timeout": {
-                    "target": "blank screen"
-                },
-                "button_a_release": {
-                    "target": "show status"
-                }
-            }
-        },
-        "time left": {
-            "entry": "time_left",
-            "on": {
-                "timeout": {
-                    "target": "blank screen"
-                },
-                "button_a_release": {
-                    "target": "show status"
-                }
-            }
+  "id": "menu_states",
+  "initial": "startup",
+  "states": {
+    "startup": {
+      "entry": "init",
+      "on": {
+        "done": {
+          "target": "startup screen"
         }
+      }
+    },
+    "startup screen": {
+      "entry": "startup_screen",
+      "on": {
+        "button_b": {
+          "target": "startup screen 2"
+        },
+        "timeout": {
+          "target": "startup screen 2"
+        }
+      }
+    },
+    "startup screen 2": {
+      "entry": "startup_screen_2",
+      "on": {
+        "button_b": {
+          "target": "startup screen 3"
+        },
+        "timeout": {
+          "target": "startup screen 3"
+        }
+      }
+    },
+    "startup screen 3": {
+      "entry": "startup_screen_3",
+      "on": {
+        "button_b": {
+          "target": "show status"
+        },
+        "timeout": {
+          "target": "show status"
+        }
+      }
+    },
+    "show status": {
+      "entry": "show_status",
+      "on": {
+        "timeout": {
+          "target": "blank screen"
+        },
+        "button_b": {
+          "target": "menu"
+        },
+        "button_b_long_press": {
+          "target": "show graph"
+        },
+        "button_a_long_press": {
+          "target": "time left"
+        }
+      }
+    },
+    "blank screen": {
+      "entry": "blank_screen",
+      "on": {
+        "button_b": {
+          "target": "menu"
+        },
+        "button_a": {
+          "target": "show status"
+        }
+      }
+    },
+    "menu": {
+      "entry": "menu",
+      "on": {
+        "button_b": {
+          "target": "menu task C"
+        },
+        "button_a_long_press": {
+          "target": "startup screen"
+        },
+        "button_a": {
+          "target": "show status"
+        },
+        "timeout": {
+          "target": "blank screen"
+        }
+      }
+    },
+    "menu task C": {
+      "entry": "menu_task_c",
+      "on": {
+        "button_b": {
+          "target": "menu task C 2"
+        },
+        "timeout": {
+          "target": "menu task C 2"
+        }
+      }
+    },
+    "menu task C 2": {
+      "entry": "menu_task_c2",
+      "on": {
+        "button_b": {
+          "target": "menu task C 3"
+        },
+        "timeout": {
+          "target": "menu task C 3"
+        }
+      }
+    },
+    "menu task C 3": {
+      "entry": "menu_task_c3",
+      "on": {
+        "button_b": {
+          "target": "menu"
+        },
+        "timeout": {
+          "target": "show status"
+        }
+      }
+    },
+    "show graph": {
+      "entry": "show_graph",
+      "on": {
+        "timeout": {
+          "target": "blank screen"
+        },
+        "button_a": {
+          "target": "show status"
+        }
+      }
+    },
+    "time left": {
+      "entry": "time_left",
+      "on": {
+        "timeout": {
+          "target": "blank screen"
+        },
+        "button_a": {
+          "target": "show status"
+        }
+      }
     }
+  }
 }

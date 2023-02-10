@@ -1,22 +1,30 @@
 import asyncio
 import keypad
-import time
+# import time
 from statemachine import enqueue
 
-async def catch_pin_transitions(pin, pressed, alias):
-    """Sends a message when button is pressed, released."""
-    with keypad.Keys( (pin,), value_when_pressed=pressed) as keys:
-        down_time = 0
+async def catch_pin_transitions(pin, pressed_val, alias):
+    """Sends a message when the button (on the pin) is pressed, long pressed."""
+    with keypad.Keys( (pin,), value_when_pressed=pressed_val) as keys:
+        down_time = -1
+        long_press_centaseconds = 130
         while True:
             event = keys.events.get()
             if event:
                 if event.pressed:
-                    enqueue(alias+"_press")
-                    # print("pin went low", pin)
-                elif event.released:
-                    enqueue(alias+"_release")
-                    # print("pin went high", pin)
-            await asyncio.sleep(0)
+                    down_time = 0
+                if event.released:
+                    if down_time >= 0 and down_time < long_press_centaseconds:
+                        enqueue(alias)
+                    down_time = -1
+            else :
+                if down_time >= long_press_centaseconds:
+                    enqueue(alias+"_long_press")
+                    down_time = -1
+
+            await asyncio.sleep(0.01)
+            if down_time >= 0:
+                down_time += 1
 
 # import board
 # async def main():
